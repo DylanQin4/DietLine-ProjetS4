@@ -10,8 +10,13 @@
 
     <div class="h-100 d-flex align-items-center justify-content-between w-100" id="navbar-collapse">
         <!-- Logo -->
-        <div class="app-brand demo py-2 h-100">
+        <a href="<?php echo base_url('') ?>" class="app-brand demo me-2 h-100">
             <img class="h-100" src="<?php echo base_url('assets/img/logo.png') ?>" alt="" srcset="">
+        </a>
+
+        <div class="navbar-nav me-auto">
+            <a class="nav-item nav-link active">Accueil</a>
+            <a class="nav-item nav-link">Evolution</a>
         </div>
 
         <ul class="navbar-nav flex-row align-items-center">
@@ -19,9 +24,10 @@
             <!-- Search -->
             <div class="navbar-nav align-items-center">
                 <div class="nav-item d-flex align-items-center">
-                    <form action="<?= base_url('/user/wallet') ?>" >
-                        <button type="submit" class="btn btn-outline-primary">
-                            <i class="bx bx-wallet"></i>&nbsp; Faire un depot
+
+                    <form action="<?= base_url('/user/wallet') ?>" class="mx-4" >
+                        <button type="submit" class="btn btn-outline-primary p-2">
+                            <i class="bx bx-wallet"></i>
                         </button>
                     </form>
                 </div>
