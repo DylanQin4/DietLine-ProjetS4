@@ -78,7 +78,7 @@ create table periode_regime (
     poids_objectif numeric(8,2),
     date_debut date not null,
     date_fin date not null,
-    etat int default 0;
+    etat int default 0
 );
 
 create table regime(

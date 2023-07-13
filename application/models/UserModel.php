@@ -101,5 +101,13 @@ class UserModel extends CI_Model {
 		}
 		return false;
 	}
+
+	public function evolution_poids($poids, $user_id){
+		$data = array(
+			'poids' => $poids
+		);
+		$this->db->where('id', $user_id);
+		$this->db->update('users', $data);
+	}
 	
 }

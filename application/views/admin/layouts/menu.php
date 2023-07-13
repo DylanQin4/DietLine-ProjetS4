@@ -24,14 +24,6 @@
             </a>
         </li>
 
-        <li class="menu-item">
-            <a href="<?= base_url('/') ?>" class="menu-link">
-            <div data-i18n="Analytics">Authentification</div>
-            <a href="<?= base_url('/user/wallet_user') ?>" class="menu-link">
-            <div data-i18n="Analytics">Validation en attente</div>
-            </a>
-        </li>
-
         <!-- Layouts -->
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
