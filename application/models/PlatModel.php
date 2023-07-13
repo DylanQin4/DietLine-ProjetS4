@@ -21,11 +21,6 @@ class PlatModel extends CI_Model {
         return $this->db->get();
     }
 
-    public function get_nb_type_plat(){
-        $this->db->from('type_plat');
-        return $this->db->count_all_results();
-    }
-
     public function get_all_plat_ids_by_type($id_type_regime){
         $this->db->select('id');
         $this->db->from('plat');

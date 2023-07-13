@@ -26,8 +26,8 @@
                 <div class="nav-item d-flex align-items-center">
 
                     <form action="<?= base_url('/user/wallet') ?>" class="mx-4" >
-                        <button type="submit" class="btn btn-outline-primary p-2">
-                            <i class="bx bx-wallet"></i>Porte-feuille
+                        <button type="submit" class="btn btn-outline-primary p-2 d-flex align-items-center">
+                            <i class="bx bx-wallet px-2"></i>Porte-feuille
                         </button>
                     </form>
                 </div>
