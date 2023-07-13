@@ -10,8 +10,8 @@ class AlimentAdmin extends CI_Model {
 	}
 
     public function get_list() {
-        $sql = "SELECT p.id as id_plat, p.nom as nom, p.ingredients as ingredients,p.prix as prix,tp.type as type_plat,rt.type as type_regime FROM plat as p join 
-        type_plat as tp on p.id_type_plat = tp.id join regime_type as rt on p.id_type_regime = rt.id";
+        $sql = "SELECT p.id as id_plat, p.nom as nom, p.ingredients as ingredients,p.prix as prix,rt.type as type_regime FROM plat as p join 
+        regime_type as rt on p.id_type_regime = rt.id";
         $query = $this->db->query($sql); 
         return $query->result_array(); 
     }
@@ -31,6 +31,13 @@ class AlimentAdmin extends CI_Model {
         
      public function liste($id) {
         $sql = "SELECT * from plat where id = $id";
+        $query = $this->db->query($sql); 
+        return $query->result_array(); 
+    }
+
+    public function get_compose($id) {
+        $sql = "SELECT p.id as id, p.nom as nom, p.ingredients as ingredients, p.prix as prix,tv.nom as type_viande,pv.poucentage
+        from pourcentage_viande as pv join plat as p on pv.id_plat=p.id join type_viande as tv on pv.id_viande = tv.id where p.id = $id";
         $query = $this->db->query($sql); 
         return $query->result_array(); 
     }
