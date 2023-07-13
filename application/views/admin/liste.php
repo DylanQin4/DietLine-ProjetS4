@@ -2,10 +2,6 @@
 require 'layouts/header.php'
 ?>
 
-
-
-
-
         <table class="table">
         <thead>
             <tr>

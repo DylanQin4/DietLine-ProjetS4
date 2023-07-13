@@ -18,57 +18,40 @@ class Aliment extends CI_Controller {
     }
 
     public function Ajout_Aliment(){
-        $data['data'] = $this->AlimentAdmin->get_type_plat();
+        // $data['data'] = $this->AlimentAdmin->get_type_plat();
         $data['d'] = $this->AlimentAdmin->get_type_regime();
         $this->load->view('admin/Aliment/ajout',$data);
     }
 
     public function traitement_ajout(){
-
-
-
         $t = array(
             $this->input->post('viande'),
             $this->input->post('poisson'),
             $this->input->post('volaille')
         );
-
+        
         $total = array_sum($t);
-        if($total <= 100){
-            
-        $data = array(
-            'nom' => $this->input->post('nom'),
-            'ingredients' => $this->input->post('ingredients'),
-            'prix' => $this->input->post('prix'),
-            'id_type_regime' => $this->input->post('type')
-        );
-         $id=$this->AlimentAdmin->ajout_aliment($data);
-         $i = 1;
-        for($i; $i<3; $i++){
-            $datas = array(
-                'id_plat' => $id,
-                'id_viande' =>$i,
-                'poucentage' => $t[$i]
-                
+        if ($total <= 100) {
+            $data = array(
+                'nom' => $this->input->post('nom'),
+                'ingredients' => $this->input->post('ingredients'),
+                'prix' => $this->input->post('prix'),
+                'id_type_regime' => $this->input->post('type')
             );
-            $this->AlimentAdmin->ajout_pourcentage($datas);
-        }
+            $id = $this->AlimentAdmin->ajout_aliment($data); 
+            for ($i = 0; $i < count($t); $i++) {
+                $datas = array(
+                    'id_plat' => $id,
+                    'id_viande' => $i + 1,
+                    'poucentage' => $t[$i]
+                );
+                $this->AlimentAdmin->ajout_pourcentage($datas);
+            }
 
         redirect('Aliment/get_aliment');
         }else {
             redirect('Aliment/update');
         }
-        // $data = array(
-        //     'nom' => $this->input->post('nom'),
-        //     'ingredients' => $this->input->post('ingredients'),
-        //     'prix' => $this->input->post('prix'),
-        //     'regime' => $this->input->post('regime'),
-        //     'viande' => $vi,
-        //     'poisson' => $p,   
-        //     'volaille' => $vo
-        // );
-        // $this->AlimentAdmin->ajout_aliment($data);
-        // redirect('Aliment/get_aliment');
     }
 
     public function delete(){
@@ -77,9 +60,15 @@ class Aliment extends CI_Controller {
 		redirect('Aliment/get_aliment');
    }
 
+   public function composant(){
+    $id = $_GET['id'];
+    $data['data'] = $this->AlimentAdmin->get_compose($id);
+    $this->load->view('admin/Aliment/composant',$data);
+}
+
     public function update(){
         $id = $_GET['id'];
-        $data['data'] = $this->AlimentAdmin->get_type_plat();
+        // $data['data'] = $this->AlimentAdmin->get_type_plat();
         $data['d'] = $this->AlimentAdmin->get_type_regime();
         $data['da'] = $this->AlimentAdmin->liste($id);
         $this->load->view('admin/Aliment/update',$data);

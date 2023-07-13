@@ -22,13 +22,14 @@
                         <td><?php echo $datas['nom']; ?></td>
                         <td><?php echo $datas['ingredients']; ?></td>
                         <td><?php echo $datas['prix']; ?></td>
-                        <td><span class="badge bg-label-primary me-1"><td><?php echo $datas['type_regime']; ?></td></span></td>
+                        <td><?php echo $datas['type_regime']; ?></td>
                         <td>
                           <div class="dropdown">
                             <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
                               <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu">
+                            <a class="dropdown-item" href="<?php echo base_url('Aliment/composant'); ?>?id=<?php echo $datas['id_plat']; ?>"><i class="bx bx-right-arrow me-1"></i> composant</a>
                               <a class="dropdown-item" href="<?php echo base_url('Aliment/delete'); ?>?id=<?php echo $datas['id_plat']; ?>"><i class="bx bx-edit-alt me-1"></i> Delete</a>
                               <a class="dropdown-item" href="<?php echo base_url('Aliment/update'); ?>?id=<?php echo $datas['id_plat']; ?>"><i class="bx bx-trash me-1"></i> Edit</a>
                             </div>

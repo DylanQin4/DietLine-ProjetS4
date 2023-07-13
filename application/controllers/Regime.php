@@ -49,7 +49,7 @@ class Regime extends CI_Controller {
     public function generate($id_type, $poids_objectif){
         $id_type = (int)$id_type;
         $arrayIdPlats = $this->PlatModel->get_all_plat_ids_by_type($id_type);
-        $nb_plat = $this->PlatModel->get_nb_type_plat();
+        $nb_plat = 3;
         $arrayIdSports = $this->SportModel->get_all_sport_ids_by_type($id_type);
 
         $difference = abs($_SESSION['poids'] - $poids_objectif);
