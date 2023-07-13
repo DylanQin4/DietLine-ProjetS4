@@ -18,7 +18,7 @@ class Aliment extends CI_Controller {
     }
 
     public function Ajout_Aliment(){
-        $data['data'] = $this->AlimentAdmin->get_type_plat();
+        // $data['data'] = $this->AlimentAdmin->get_type_plat();
         $data['d'] = $this->AlimentAdmin->get_type_regime();
         $this->load->view('admin/Aliment/ajout',$data);
     }
@@ -60,15 +60,15 @@ class Aliment extends CI_Controller {
 		redirect('Aliment/get_aliment');
    }
 
-   public function composent(){
+   public function composant(){
     $id = $_GET['id'];
     $data['data'] = $this->AlimentAdmin->get_compose($id);
-    $this->load->view('admin/Aliment/composent',$data);
+    $this->load->view('admin/Aliment/composant',$data);
 }
 
     public function update(){
         $id = $_GET['id'];
-        $data['data'] = $this->AlimentAdmin->get_type_plat();
+        // $data['data'] = $this->AlimentAdmin->get_type_plat();
         $data['d'] = $this->AlimentAdmin->get_type_regime();
         $data['da'] = $this->AlimentAdmin->liste($id);
         $this->load->view('admin/Aliment/update',$data);

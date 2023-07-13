@@ -4,7 +4,7 @@
 <div class="container-xxl flex-grow-1 container-p-y">
     <div class="d-flex flex-column justify-conten-between align-items-baseline">
         <div class="card">
-        <h5 class="card-header">Composent du plat</h5>
+        <h5 class="card-header">composant du plat</h5>
         <h5 class="text-center"><?php echo $data[0]['nom']; ?></h3>
             <table class="table">
                     <thead>

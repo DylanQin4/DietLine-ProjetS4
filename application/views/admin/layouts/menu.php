@@ -56,31 +56,6 @@
                 </li>
             </ul>
         </li>
-
-        <!-- Layouts -->
-        <li class="menu-item">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Layouts">Code</div>
-            </a>
-
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="<?= base_url('/code/general-accounting') ?>" class="menu-link">
-                    <div data-i18n="Without menu">Liste</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="<?= base_url('/code/chart-of-accounts') ?>" class="menu-link">
-                    <div data-i18n="Without navbar">Plan Tiers</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="<?= base_url('/code/journal-code') ?>" class="menu-link">
-                    <div data-i18n="Container">Codes Journaux</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
     </ul>
 </aside>
 <!-- / Menu --  

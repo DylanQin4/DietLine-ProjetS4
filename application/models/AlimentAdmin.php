@@ -16,12 +16,6 @@ class AlimentAdmin extends CI_Model {
         return $query->result_array(); 
     }
 
-    public function get_type_plat() {
-        $sql = "SELECT * from type_plat";
-        $query = $this->db->query($sql); 
-        return $query->result_array(); 
-    }
-
     public function l() {
         $sql = "SELECT * from type_plat";
         $query = $this->db->query($sql); 

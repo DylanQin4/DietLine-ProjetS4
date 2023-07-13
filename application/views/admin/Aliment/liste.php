@@ -29,7 +29,7 @@
                               <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu">
-                            <a class="dropdown-item" href="<?php echo base_url('Aliment/composent'); ?>?id=<?php echo $datas['id_plat']; ?>"><i class="bx bx-right-arrow me-1"></i> Composent</a>
+                            <a class="dropdown-item" href="<?php echo base_url('Aliment/composant'); ?>?id=<?php echo $datas['id_plat']; ?>"><i class="bx bx-right-arrow me-1"></i> composant</a>
                               <a class="dropdown-item" href="<?php echo base_url('Aliment/delete'); ?>?id=<?php echo $datas['id_plat']; ?>"><i class="bx bx-edit-alt me-1"></i> Delete</a>
                               <a class="dropdown-item" href="<?php echo base_url('Aliment/update'); ?>?id=<?php echo $datas['id_plat']; ?>"><i class="bx bx-trash me-1"></i> Edit</a>
                             </div>
