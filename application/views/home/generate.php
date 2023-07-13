@@ -9,8 +9,8 @@
 
                         <div class="d-flex">
                             <div class="mx-2">
-                                <button type="submit" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#basicModal">
-                                    <i class='bx bx-refresh mx-2'></i>Mon poids
+                                <button type="submit" class="btn btn-outline-primary  d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#basicModal">
+                                    <i class='bx bx-refresh'></i><span class="ml-2">Mon poids</span>
                                 </button>
 
                                 <!-- Modal Modification -->
@@ -53,7 +53,49 @@
                         </div>
                     </div>
 
-                    
+                    <div class="card">
+                        <h5 class="card-header">Table Basic</h5>
+                        <div class="table-responsive text-nowrap">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th class="bold"></th>
+                                <th colspan="3" class="text-center border">Plats</th>
+                                <th></th>
+                                <th colspan="3" class="text-center border">Pourcentage</th>
+                                <th class="bold"></th>
+                                <th class="bold"></th>
+                            </tr>
+                            <tr>
+                                <td class="text-center fw-bold border">Jour</td>
+                                <td class="text-center fw-bold border">Matin</td>
+                                <td class="text-center fw-bold border">Midi</td>
+                                <td class="text-center fw-bold border">Soir</td>
+                                <td class="text-center fw-bold border">Sport</td>
+                                <td class="text-center fw-bold border">viande</td>
+                                <td class="text-center fw-bold border">Poisson</td>
+                                <td class="text-center fw-bold border">Volaille</td>
+                                <td class="text-center fw-bold border">Montant</td>
+                                <td class="text-center fw-bold border"></td>
+                            </tr>
+                            </thead>
+                            <tbody class="table-border-bottom-0">
+                            <tr>
+                                <td><strong>1</strong></td>
+                                <td>akoho</td>
+                                <td>Hena</td>
+                                <td>salade</td>
+                                <td>Pompes</td>
+                                <td class="text-end">10%</td>
+                                <td class="text-end">20%</td>
+                                <td class="text-end">0%</td>
+                                <td  class="text-end">3000 Ar</td>
+                                <td>voir plus</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </div>
+                    </div>
 
                 </div>
             </div>

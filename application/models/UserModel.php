@@ -14,7 +14,7 @@ class UserModel extends CI_Model {
 		if ($user->taille == 0) {
 			return 0;
 		}
-		return $user->poids/($user->taille*$user->taille);
+		return round($user->poids/($user->taille*$user->taille), 2);
 	}
 	
 	public function create_user($username, $email, $id_genre, $password, $taille, $poids) {

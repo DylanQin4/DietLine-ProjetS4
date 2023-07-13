@@ -75,20 +75,20 @@
               <?php endif; ?>
 
               <form id="formAuthentication" class="mb-3" action="<?= base_url('auth/register2'); ?>" method="POST" autocomplete="off"  enctype="multipart/form-data">
-              <div class="mb-3">
-                  <label for="taille" class="form-label">Taille</label>
-                  <input type="text" class="form-control" id="taille" name="taille" placeholder="Entrer votre taille" autofocus value="<?= set_value('taille'); ?>" />
-                  <?php echo form_error('taille', '<small class="text-danger">', '</small>'); ?>
-              </div>
-              <div class="mb-3">
-                  <label for="poids" class="form-label">Poids</label>
-                  <input type="text" class="form-control" id="poids" name="poids" placeholder="Entrer votre poids" autofocus value="<?= set_value('poids'); ?>" />
-                  <?php echo form_error('poids', '<small class="text-danger">', '</small>'); ?>
-              </div>
-              <div class="d-flex">
-                <a class="btn btn-danger d-grid w-100 m-2" type="" href="<?php echo base_url('auth/register')?>">Retour</a>
-                <button class="btn btn-primary d-grid w-100 m-2" type="submit">Valider</button>
-              </div>
+                <div class="mb-3">
+                    <label for="taille" class="form-label">Taille (en m)</label>
+                    <input type="text" class="form-control" id="taille" name="taille" placeholder="Entrer votre taille" autofocus value="<?= set_value('taille'); ?>" />
+                    <?php echo form_error('taille', '<small class="text-danger">', '</small>'); ?>
+                </div>
+                <div class="mb-3">
+                    <label for="poids" class="form-label">Poids (en kg)</label>
+                    <input type="text" class="form-control" id="poids" name="poids" placeholder="Entrer votre poids" autofocus value="<?= set_value('poids'); ?>" />
+                    <?php echo form_error('poids', '<small class="text-danger">', '</small>'); ?>
+                </div>
+                <div class="d-flex">
+                  <a class="btn btn-danger d-grid w-100 m-2" type="" href="<?php echo base_url('auth/register')?>">Retour</a>
+                  <button class="btn btn-primary d-grid w-100 m-2" type="submit">Valider</button>
+                </div>
               </form>
 
               <p class="text-center">
