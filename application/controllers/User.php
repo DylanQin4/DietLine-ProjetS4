@@ -28,7 +28,6 @@ class User extends CI_Controller {
     public function update_profil(){
 		$form_data = $this->input->post();
         $user_id = $_SESSION['user_id'];
-        $poids = $this->input->post('poids');
 
         $this->histo_morphology($user_id, $poids);
 
@@ -42,6 +41,18 @@ class User extends CI_Controller {
         $_SESSION['poids']        = (float)$user->poids;
         $_SESSION['taille']       = (float)$user->taille;
         $this->load->view('home/profil');
+    }
+
+    public function updatePoids(){
+        $poids = $this->input->post('poids');
+        $user_id = $_SESSION['user_id'];
+
+        $this->histo_morphology($user_id, $poids);
+        $this->userModel->evolution_poids($poids, $user_id);
+		$user    = $this->userModel->get_user($user_id);
+
+        $_SESSION['poids']        = (float)$user->poids;
+        $this->load->view('home/accueil');
     }
 
     private function insertCodesIntoData(){

@@ -26,7 +26,7 @@
                                     <td><?php echo $valeur[$i]?></td>
                                     <td>
                                         <button type="button" class="btn btn-success">
-                                            <a href="<?= base_url("user/validation_admin?id_code=".$attente[$i]->id_code."&id_user=".$attente[$i]->id_user."&valeur=".$valeur[$i])?>" style="color: inherit; text-decoration: none;">Valider</a>
+                                        <a     href="<?= base_url("user/validation_admin?id_code=".$attente[$i]->id_code."&id_user=".$attente[$i]->id_user."&valeur=".$valeur[$i])?>" style="color: inherit; text-decoration: none;">Valider</a>
                                         </button>
                                         <button type="button" class="btn btn-danger">
                                             <a href="<?= base_url("user/refus_admin?indice_valid_code=".$attente[$i]->id_val)?>" style="color: inherit; text-decoration: none;" style="color: inherit; text-decoration: none;">Refuser</a>

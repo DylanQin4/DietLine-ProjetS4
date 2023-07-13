@@ -24,18 +24,10 @@
             </a>
         </li>
 
-        <li class="menu-item">
-            <a href="<?= base_url('/') ?>" class="menu-link">
-            <div data-i18n="Analytics">Authentification</div>
-            <a href="<?= base_url('/user/wallet_user') ?>" class="menu-link">
-            <div data-i18n="Analytics">Validation en attente</div>
-            </a>
-        </li>
-
         <!-- Layouts -->
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <div data-i18n="Layouts">Getion des tâches</div>
+            <div data-i18n="Layouts">Gestion des tâches</div>
             </a>
 
             <ul class="menu-sub">
@@ -52,6 +44,11 @@
                 <li class="menu-item">
                     <a href="<?php echo base_url('Sport/get_all'); ?>" class="menu-link">
                     <div data-i18n="Analytics">Sport</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="<?php echo base_url('code/get_all'); ?>" class="menu-link">
+                    <div data-i18n="Analytics">Code</div>
                     </a>
                 </li>
             </ul>

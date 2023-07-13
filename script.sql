@@ -78,7 +78,7 @@ create table periode_regime (
     poids_objectif numeric(8,2),
     date_debut date not null,
     date_fin date not null,
-    etat int default 0;
+    etat int default 0
 );
 
 create table regime(
@@ -182,17 +182,52 @@ INSERT INTO type_viande VALUES
 
 INSERT INTO pourcentage_viande VALUES
     (null, 1, 1, 0),
+    (null, 2, 1, 0),
+    (null, 3, 1, 0),
+
+    (null, 1, 2, 0),
     (null, 2, 2, 10),
+    (null, 3, 2, 0),
+
+    (null, 1, 3, 0),
+    (null, 2, 3, 0),
     (null, 3, 3, 25),
+
     (null, 1, 4, 0),
+    (null, 2, 4, 0),
+    (null, 3, 4, 0),
+
+    (null, 1, 5, 0),
+    (null, 2, 5, 0),
     (null, 3, 5, 35),
+
     (null, 1, 6, 0),
+    (null, 2, 6, 0),
+    (null, 3, 6, 0),
+
     (null, 1, 7, 0),
+    (null, 2, 7, 0),
+    (null, 3, 7, 0),
+
+    (null, 1, 8, 0),
+    (null, 2, 8, 0),
     (null, 3, 8, 50),
+
     (null, 1, 9, 0),
+    (null, 2, 9, 0),
+    (null, 3, 9, 0),
+
     (null, 1, 10, 0),
+    (null, 2, 10, 0),
+    (null, 3, 10, 0),
+
+    (null, 1, 11, 0),
+    (null, 2, 11, 0),
     (null, 3, 11, 60),
-    (null, 1, 12, 0);
+
+    (null, 1, 12, 0),
+    (null, 2, 12, 0),
+    (null, 3, 12, 0);
 
 INSERT INTO sport VALUES
     (null, 1, 'Course à pied'),
