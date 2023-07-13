@@ -21,6 +21,25 @@ class CodeModel extends CI_Model {
         return $query->result();
 	}
 
+    public function get_idCode_by_correspondantCode($id_code){
+        $this->db->from('validation_codes');
+        $this->db->where('id_code', $id_code);
+        $result = $this->db->get()->row();
+    
+        return $result;
+    }
+
+    public function get_code_enAttente($id_code) {
+        $query = $this->db->get('validation_codes');
+        $results = $query->result();
+		foreach ($results as $row) {
+            if ($id_code == $row->id_code) {
+                return true;
+            }
+        }
+        return false;
+	}
+
     public function attente_validation($id_code, $user_id){
 		$query = $this->db->get('validation_codes');
         $results = $query->result(); 
@@ -146,6 +165,40 @@ class CodeModel extends CI_Model {
     public function delete_validation_code($indice_valid_code){
         $this->db->where('id', $indice_valid_code);
         $this->db->delete('validation_codes');
+    }
+
+    public function deleteCode($id_code){
+            $this->db->where('id', $id_code);
+            $this->db->delete('codes');
+    }
+
+    // public function get_idValeur_by_valeur($valeur) {
+    //     $this->db->from('valeur');
+    //     $this->db->where('valeur', $valeur);
+    //     $result = $this->db->get()->row();
+    
+    //     return $result;
+    // }   
+
+    // public function updateCode($id_valeur, $id_code){
+	// 	$data = array(
+	// 		'id_valeur' => $id_valeur
+	// 	);
+	// 	$this->db->where('id', $id_code);
+	// 	$this->db->update('codes', $data);
+	// }
+
+    public function generate_code(){
+        $code = '';
+        $chiffres = '0123456789';
+        $longueur = 10;
+        
+        for ($i = 0; $i < $longueur; $i++) {
+            $index = rand(0, strlen($chiffres) - 1);
+            $code .= $chiffres[$index];
+        }
+        
+        return $code;
     }
 }
 ?>
