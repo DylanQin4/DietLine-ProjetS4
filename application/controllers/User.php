@@ -181,5 +181,9 @@ class User extends CI_Controller {
 	$this->UsersAdmin->update_user($data,$id);
 	redirect('User/list_user');
 	}
+
+    public function regime_user(){
+        $this->load->view('admin/validation_regime');
+    }
 }
 ?>

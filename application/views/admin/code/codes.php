@@ -18,14 +18,14 @@
                 </button>
 
                 <!-- Modal Modification -->
-            <form action="<?= base_url('code/add_code')?>" method="POST">
+            <form action="<?= base_url('code/insert_code')?>" method="POST">
                 <div class="modal fade" id="basicModal" tabindex="-1" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                     <div class="modal-header">
                         <h5 class="modal-title" id="exampleModalLabel1">Ajout de code</h5>
-                        <button type="button" class="btn btn-primary">
-                            <a href="<?= base_url("code/generer_code")?>" style="color: inherit; text-decoration: none;">Generer un nouveau</a>
+                        <button type="button" class="btn btn-primary" onclick="genererCode()">
+                           Generer un nouveau
                         </button>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         
@@ -33,11 +33,10 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col mb-3">
-                                <?php if (isset($_SESSION['code_genere'])) { ?>
-                                <h5 class="modal-title" id="exampleModalLabel1">Nouveau code: <?php echo $_SESSION['code_genere']?> </h5>
-                                <?php } ?>
+                                <h5 class="modal-title" id="codeOutput"></h5>
                                 <label for="nameBasic" class="form-label">Valeur</label>
                                 <input type="text" name="valeur" class="form-control" placeholder="Entrer la valeur du code en Ariary">
+                                <input type="hidden" name="code" id="codeInput">
                             </div>
                         </div>
                     </div>
@@ -82,8 +81,8 @@
                               <i class="bx bx-dots-vertical-rounded"></i>
                             </button>
                             <div class="dropdown-menu">
-                              <a class="dropdown-item" href="<?php echo base_url('code/delete_code'); ?>?id=<?php echo $list_codes['id_code'][$i]; ?>"><i class="bx bx-edit-alt me-1"></i> Delete</a>
-                              <a class="dropdown-item" href="<?php echo base_url('code/update_code'); ?>?id=<?php echo $list_codes['id_code'][$i]; ?>"><i class="bx bx-trash me-1"></i> Edit</a>
+                              <a class="dropdown-item" href="<?php echo base_url('code/delete_code'); ?>?id=<?php echo $list_codes['id_code'][$i]; ?>"><i class="bx bx-edit-alt me-1"></i> Supprimer</a>
+                              <a class="dropdown-item" href="<?php echo base_url('code/update_code'); ?>?id=<?php echo $list_codes['id_code'][$i]; ?>"><i class="bx bx-trash me-1"></i> Modifier</a>
                             </div>
                           </div>
                         </td>
@@ -94,6 +93,26 @@
                  </div>    
         </div>
     </div>
-        <?php 
-$this->load->view('admin/layouts/footer');
-?>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function genererCode() {
+        var code = '';
+        var chiffres = '0123456789';
+
+        for (var i = 0; i < 10; i++) {
+            var randomIndex = Math.floor(Math.random() * chiffres.length);
+            code += chiffres[randomIndex];
+        }
+
+        // Utilisez le code généré comme vous le souhaitez
+        console.log(code);
+        document.getElementById('codeInput').value = code;
+        var message = "Nouveau code: " + code;
+        // Ou mettez à jour un élément HTML avec le code généré
+        document.getElementById('codeOutput').innerHTML = message;
+
+        }
+    </script>
+    <?php 
+        $this->load->view('admin/layouts/footer');
+    ?>

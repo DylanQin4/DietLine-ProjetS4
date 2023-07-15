@@ -24,6 +24,26 @@
             </a>
         </li>
 
+        <li class="menu-item">
+            <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <div data-i18n="Layouts">Validation en attente</div>
+            </a>
+
+            <ul class="menu-sub">
+                <li class="menu-item">
+                    <a href="<?php echo base_url('user/regime_user'); ?>" class="menu-link">
+                    <div data-i18n="Analytics">Validation de regime</div>
+                    </a>
+                </li>
+                <li class="menu-item">
+                    <a href="<?php echo base_url('user/wallet_user'); ?>" class="menu-link">
+                    <div data-i18n="Analytics">Validation de depot</div>
+                    </a>
+                </li>
+                
+            </ul>
+        </li>
+
         <!-- Layouts -->
         <li class="menu-item">
             <a href="javascript:void(0);" class="menu-link menu-toggle">
