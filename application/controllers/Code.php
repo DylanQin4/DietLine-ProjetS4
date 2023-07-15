@@ -56,10 +56,18 @@ class Code extends CI_Controller {
     //     $this->userModel->updateCode($form_data, $user_id);
     // }
 
-    public function generer_code(){
-        $code_genere = $this->codeModel->generate_code();
-        echo $code_genere;
-        $_SESSION['code_genere'] = $code_genere;
+    // public function generer_code(){
+    //     $code_genere = $this->codeModel->generate_code();
+    //     echo $code_genere;
+    //     $_SESSION['code_genere'] = $code_genere;
+    // }
+
+    public function insert_code(){
+        $valeur = $this->input->post('valeur');
+        $code = $this->input->post('code');
+        $id_valeur = $this->codeModel->get_idValeur_by_valeur($valeur)->id;
+        $this->codeModel->add_code($code, $id_valeur);
+        $this->get_all();
     }
 }
 ?>

@@ -172,13 +172,13 @@ class CodeModel extends CI_Model {
             $this->db->delete('codes');
     }
 
-    // public function get_idValeur_by_valeur($valeur) {
-    //     $this->db->from('valeur');
-    //     $this->db->where('valeur', $valeur);
-    //     $result = $this->db->get()->row();
+    public function get_idValeur_by_valeur($valeur) {
+        $this->db->from('valeur');
+        $this->db->where('valeur', $valeur);
+        $result = $this->db->get()->row();
     
-    //     return $result;
-    // }   
+        return $result;
+    }   
 
     // public function updateCode($id_valeur, $id_code){
 	// 	$data = array(
@@ -188,17 +188,26 @@ class CodeModel extends CI_Model {
 	// 	$this->db->update('codes', $data);
 	// }
 
-    public function generate_code(){
-        $code = '';
-        $chiffres = '0123456789';
-        $longueur = 10;
+    // public function generate_code(){
+    //     $code = '';
+    //     $chiffres = '0123456789';
+    //     $longueur = 10;
         
-        for ($i = 0; $i < $longueur; $i++) {
-            $index = rand(0, strlen($chiffres) - 1);
-            $code .= $chiffres[$index];
-        }
+    //     for ($i = 0; $i < $longueur; $i++) {
+    //         $index = rand(0, strlen($chiffres) - 1);
+    //         $code .= $chiffres[$index];
+    //     }
         
-        return $code;
+    //     return $code;
+    // }
+
+    public function add_code($code, $id_valeur){
+        $data = array(
+            'codes'   => $code,
+            'id_valeur'   => $id_valeur
+        );
+        
+        return $this->db->insert('codes', $data);
     }
 }
 ?>
