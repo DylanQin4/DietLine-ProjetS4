@@ -53,8 +53,6 @@
                         </div>
                     </div>
 
-                    <p><?php echo isset($_SESSION['regime_generated']) ? var_dump($_SESSION['regime_generated']): 'tsisy' ?></p>
-
                     <div class="card">
                         <div class="d-flex align-items-center">
                             <h5 class="card-header">Montant a paye: <strong><?php echo $regime_generated['sum_prix'] ?> Ar</strong></h5>
