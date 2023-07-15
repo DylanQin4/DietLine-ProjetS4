@@ -8,6 +8,56 @@ class RegimeModel extends CI_Model {
 		$this->load->database();
 		
 	}
+	
+	public function get_periode_regime_by_id($id_periode_regime){
+		$this->db->from('periode_regime');
+		$this->db->where('id', $id_periode_regime);
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0) {
+			return $query->row();
+		} else {
+			return null;
+		}
+	}
+
+	public function get_regime_by_periode_regime($id_periode_regime){
+		$this->db->from('regime');
+		$this->db->where('id_periode_regime', $id_periode_regime);
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		} else {
+			return null;
+		}
+	}
+
+	public function get_details_aliments($id_regime){
+		$this->db->from('details_aliments');
+		$this->db->where('id_regime', $id_regime);
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		} else {
+			return null;
+		}
+	}
+
+	public function get_details_sportif($id_regime){
+		$this->db->select('sport.nom as nom');
+		$this->db->from('details_sportif');
+		$this->db->join('sport', 'details_sportif.id_sport = sport.id');
+		$this->db->where('details_sportif.id_regime', $id_regime);
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0) {
+			return $query->row();
+		} else {
+			return null;
+		}
+	}
 
     public function get_regime_by_id($id){
 		$this->db->from('regime');

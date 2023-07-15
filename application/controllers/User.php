@@ -52,7 +52,7 @@ class User extends CI_Controller {
 		$user    = $this->userModel->get_user($user_id);
 
         $_SESSION['poids']        = (float)$user->poids;
-        $this->load->view('home/accueil');
+        redirect('');
     }
 
     private function insertCodesIntoData(){

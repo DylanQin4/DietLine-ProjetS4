@@ -24,6 +24,48 @@ class Regime extends CI_Controller {
         redirect('');
     }
 
+    public function detail($id_periode_regime, $id_regime){
+        $this->load->model('regimeModel');
+        $this->load->model('platModel');
+        $data['periode_regime'] = $this->regimeModel->get_periode_regime_by_id($id_periode_regime);
+        $data['id_periode_regime'] = $id_periode_regime;
+        $regimes = $this->regimeModel->get_regime_by_periode_regime($id_periode_regime);
+        $i = 0;
+        foreach ($regimes as $regime) {
+            $details_aliments = $this->regimeModel->get_details_aliments($regime->id);
+            $j = 0;
+            foreach ($details_aliments as $plat) {
+                $data['regimes']['details_aliments'][$i][$j] = $this->platModel->get_plat_by_id($plat->id_plat);
+                $j++;
+            }
+            $data['regimes']['details_sportif'][$i] = $this->regimeModel->get_details_sportif($regime->id);
+            $i++;
+        }
+        
+        $this->load->view('home/details', $data);
+    }
+
+    public function details($id_periode_regime){
+        $this->load->model('regimeModel');
+        $this->load->model('platModel');
+        $data['periode_regime'] = $this->regimeModel->get_periode_regime_by_id($id_periode_regime);
+        $data['id_periode_regime'] = $id_periode_regime;
+        $regimes = $this->regimeModel->get_regime_by_periode_regime($id_periode_regime);
+        $i = 0;
+        foreach ($regimes as $regime) {
+            $details_aliments = $this->regimeModel->get_details_aliments($regime->id);
+            $j = 0;
+            foreach ($details_aliments as $plat) {
+                $data['regimes']['details_aliments'][$i][$j] = $this->platModel->get_plat_by_id($plat->id_plat);
+                $j++;
+            }
+            $data['regimes']['details_sportif'][$i] = $this->regimeModel->get_details_sportif($regime->id);
+            $i++;
+        }
+        
+        $this->load->view('home/details', $data);
+    }
+
     public function insert(){
         $this->db->trans_start();
 
