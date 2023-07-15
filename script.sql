@@ -26,7 +26,7 @@ CREATE TABLE histo_morphology (
 
 CREATE TABLE valeur (
     id int PRIMARY KEY AUTO_INCREMENT,
-    valeur numeric(8,2) NOT NULL
+    valeur numeric(15,2) NOT NULL
 );
 
 CREATE TABLE codes (
@@ -78,6 +78,7 @@ create table periode_regime (
     poids_objectif numeric(8,2),
     date_debut date not null,
     date_fin date not null,
+    montant_total numeric(15,2),
     etat int default 0
 );
 
@@ -123,14 +124,14 @@ INSERT INTO users(id, username, email, id_genre, password, avatar, created_at, i
     (null, 'Randria', 'randria@gmail.com', 1, '02580', 'default.jpg', '2023-07-10 12:20:45', 0, 1.70, '75.900', 25000);
 
 INSERT INTO valeur VALUES
-    (null, '100'),
-    (null, '200'),
-    (null, '500'),
     (null, '1000'),
     (null, '2000'),
     (null, '5000'),
     (null, '10000'),
-    (null, '20000');
+    (null, '20000'),
+    (null, '500000'),
+    (null, '1000000'),
+    (null, '2000000');
 
 INSERT INTO codes VALUES 
     (null, '8365491723', 1, 1),

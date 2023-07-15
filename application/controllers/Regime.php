@@ -39,7 +39,8 @@ class Regime extends CI_Controller {
             'id_type' => $_SESSION['regime_generated']['type_regime'],
             'poids_objectif' => $_SESSION['regime_generated']['poids_atteindre'],
             'date_debut' => $_SESSION['regime_generated']['date_debut'],
-            'date_fin' => $_SESSION['regime_generated']['date_fin']
+            'date_fin' => $_SESSION['regime_generated']['date_fin'],
+            'montant_total' => $_SESSION['regime_generated']['sum_prix']
         ));
         $id_periode_regime = $this->db->insert_id();
         for ($i=0; $i < count($_SESSION['regime_generated']['ids_plats']); $i++) { 
