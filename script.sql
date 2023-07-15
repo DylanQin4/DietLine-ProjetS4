@@ -89,8 +89,7 @@ create table regime(
 create table details_aliments(
     id int primary key auto_increment,
     id_regime int references regime(id),
-    id_plat int references plat(id),
-    poids numeric(6,2) not null
+    id_plat int references plat(id)
 );
 
 create table details_sportif(

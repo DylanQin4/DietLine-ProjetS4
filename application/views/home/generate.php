@@ -53,8 +53,17 @@
                         </div>
                     </div>
 
+                    <p><?php echo isset($_SESSION['regime_generated']) ? var_dump($_SESSION['regime_generated']): 'tsisy' ?></p>
+
                     <div class="card">
-                        <h5 class="card-header">Table Basic</h5>
+                        <div class="d-flex align-items-center">
+                            <h5 class="card-header">Montant a paye: <strong><?php echo $regime_generated['sum_prix'] ?> Ar</strong></h5>
+                            <form class="mx-4">
+                                <input type="hidden" name="regime_generated" value="">
+                                <button type="submit" class="btn btn-primary">Valider</button>
+                                <a class="btn btn-outline-danger" href="<?php echo base_url('')?>">Annuler</a>
+                            </form>
+                        </div>
                         <div class="table-responsive text-nowrap">
                         <table class="table">
                             <thead>
@@ -62,7 +71,6 @@
                                 <th class="bold"></th>
                                 <th colspan="3" class="text-center border">Plats</th>
                                 <th></th>
-                                <th colspan="3" class="text-center border">Pourcentage</th>
                                 <th class="bold"></th>
                                 <th class="bold"></th>
                             </tr>
@@ -72,26 +80,25 @@
                                 <td class="text-center fw-bold border">Midi</td>
                                 <td class="text-center fw-bold border">Soir</td>
                                 <td class="text-center fw-bold border">Sport</td>
-                                <td class="text-center fw-bold border">viande</td>
-                                <td class="text-center fw-bold border">Poisson</td>
-                                <td class="text-center fw-bold border">Volaille</td>
                                 <td class="text-center fw-bold border">Montant</td>
-                                <td class="text-center fw-bold border"></td>
                             </tr>
                             </thead>
                             <tbody class="table-border-bottom-0">
-                            <tr>
-                                <td><strong>1</strong></td>
-                                <td>akoho</td>
-                                <td>Hena</td>
-                                <td>salade</td>
-                                <td>Pompes</td>
-                                <td class="text-end">10%</td>
-                                <td class="text-end">20%</td>
-                                <td class="text-end">0%</td>
-                                <td  class="text-end">3000 Ar</td>
-                                <td>voir plus</td>
-                            </tr>
+                                <?php
+                                    for ($i=0; $i < count($regime_generated['details_plats']); $i++) { 
+                                    $sum = 0;
+                                ?>
+                                    <tr>
+                                        <td><strong><?php echo $i+1 ?></strong></td>
+                                        <?php for ($j=0; $j < count($regime_generated['details_plats'][$i]); $j++) {
+                                            $sum = $sum + $regime_generated['details_plats'][$i][$j]['prix'];
+                                        ?>
+                                            <td><?php echo $regime_generated['details_plats'][$i][$j]['nom']    ?></td>
+                                        <?php } ?>
+                                        <td><?php echo $regime_generated['details_sports'][$i]    ?></td>
+                                        <td  class="text-end"><?php echo $sum ?></td>
+                                    </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                         </div>

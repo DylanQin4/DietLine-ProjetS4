@@ -21,6 +21,22 @@ class SportModel extends CI_Model {
         return $this->db->get();
     }
 
+    public function get_name_sport_by_id($id) {
+        $this->db->select('nom');
+        $this->db->from('sport');
+        $this->db->where('id', $id);
+        $query = $this->db->get();
+    
+        if ($query->num_rows() > 0) {
+            $row = $query->row();
+            return $row->nom;
+        } else {
+            return '';
+        }
+    }
+    
+    
+
     public function get_all_sport_ids_by_type($id_type_regime){
         $this->db->select('id');
         $this->db->from('sport');
@@ -31,7 +47,7 @@ class SportModel extends CI_Model {
         
         if ($query->num_rows() > 0) {
             foreach ($query->result_array() as $row) {
-                $sportIds[] = $row['id'];
+                $sportIds[] = intval($row['id']);
             }
         }
         

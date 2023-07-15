@@ -52,6 +52,15 @@ class Regime extends CI_Controller {
             $data['regime_generated'] = $this->generate($type_regime, $poids_atteindre);
             $data['type_regime'] = $type_regime;
             $data['poids_atteindre'] = $poids_atteindre;
+            $_SESSION['regime_generated'] = array(
+                'type_regime' => $type_regime,
+                'poids_atteindre' => $poids_atteindre,
+                'sum_prix' => $data['regime_generated']['sum_prix'],
+                'date_debut' => $data['regime_generated']['date_debut'],
+                'date_fin' => $data['regime_generated']['date_fin'],
+                'ids_plats' => $data['regime_generated']['ids_plats'],
+                'ids_sports' => $data['regime_generated']['ids_sports']
+            );
             $this->load->view("home/generate", $data);
         } else {
             $data['error'] = "Vous devez saisir un poids superieur à votre poids actuel";
@@ -93,44 +102,68 @@ class Regime extends CI_Controller {
         echo $this->calendar->generate($year , $month);
     }
 
+    public function select_regime_aliment($details_aliments){
+        $rep = array_fill(0, count($id_type, $poids_objectif), null);
+        for ($i=0; $i < count($id_type, $poids_objectif); $i++) { 
+            for ($j=0; $j < 3; $j++) {
+
+            }
+        }
+    }
+
     public function generate($id_type, $poids_objectif){
+        $this->load->model('platModel');
+        $this->load->model('sportModel');
         $id_type = (int)$id_type;
         $arrayIdPlats = $this->PlatModel->get_all_plat_ids_by_type($id_type);
         $nb_plat = 3;
         $arrayIdSports = $this->SportModel->get_all_sport_ids_by_type($id_type);
 
+
         $difference = abs($_SESSION['poids'] - $poids_objectif);
-        $periode = ($id_type == 1)? 7 : 5; // 7jours pour perdre et 4 pour avoir 2kg de poids
+        $periode = ($id_type == 1)? 7 : 4; // 7jours pour perdre et 4 pour avoir 2kg de poids
         $nbJours = intval(($difference % 2 != 0) ? (($difference -1)/2)*$periode : ($difference/2)*$periode);
 
         $dateDebut = new DateTime();
         $dateFin = clone $dateDebut;
         $dateFin->add(new DateInterval('P' . $nbJours . 'D'));
 
-        $periode_regime['id_user'] = $_SESSION['user_id'];
         $periode_regime['id_type'] = $id_type;
-        $periode_regime['poids_objectif'] = $poids_objectif;
+        $periode_regime['poids_objectif'] = round($poids_objectif, 2);
         $periode_regime['date_debut'] = $dateDebut->format('Y-m-d');
         $periode_regime['date_fin'] = $dateFin->format('Y-m-d');
-        $periode_regime['details_aliments'] = array_fill(0, $nbJours, null);
+        $periode_regime['details_plats'] = array_fill(0, $nbJours, null);
         $periode_regime['details_sports'] = array_fill(0, $nbJours, null);
+        $sum_prix = 0;
 
         for ($i=0; $i < $nbJours; $i++) { 
-            $platJournee = array(); //tableau avec 3 éléments null
+            $platJournee = array();
             
             while (count($platJournee) < $nb_plat) {
-                $id_plat = array_rand($arrayIdPlats);
+                $id_plat = $arrayIdPlats[array_rand($arrayIdPlats)];
     
                 if (!in_array($id_plat, $platJournee)) {
                     $platJournee[] = $id_plat;
                 }
             }
 
-            $periode_regime['details_aliments'][$i] = $platJournee;
-            $periode_regime['details_sports'][$i] = array_rand($arrayIdSports);
+            $random_id_sport = $arrayIdSports[array_rand($arrayIdSports)];
+            $periode_regime['ids_sports'][$i] = $random_id_sport;
+            $periode_regime['ids_plats'][$i] = $platJournee;
+            list($periode_regime['details_plats'][$i], $sum_prix) = $this->getDetailsPlats($platJournee, $sum_prix);
+            $periode_regime['details_sports'][$i] = $this->sportModel->get_name_sport_by_id($random_id_sport);
         }
+        $periode_regime['sum_prix'] = $sum_prix;
 
-        var_dump( $periode_regime);
+        return $periode_regime;
     }
 
+    private function getDetailsPlats($ids_plats, $sum_prix){
+        $this->load->model('platModel');
+        for ($i=0; $i < count($ids_plats); $i++) { 
+            $rep[$i] = $this->platModel->get_plat_with_pourcentage_viande($ids_plats[$i]);
+            $sum_prix = $sum_prix + $rep[$i]['prix'];
+        }
+        return array($rep, $sum_prix);
+    }
 }
