@@ -17,6 +17,69 @@ class Regime extends CI_Controller {
         
     }
 
+    public function cancel(){
+        if (isset($_SESSION['regime_genrated'])) {
+            unset($_SESSION['regime_genrated']);
+        }
+        redirect('');
+    }
+
+    public function insert(){
+        $this->db->trans_start();
+
+        //Operation
+        $wallet = $_SESSION['wallet'] - $_SESSION['regime_generated']['sum_prix'];
+        $this->db->update('users', array(
+            'wallet' => $wallet
+        ));
+        $_SESSION['wallet'] = $wallet;
+
+        $this->db->insert('periode_regime', array(
+            'id_user' => $_SESSION['user_id'],
+            'id_type' => $_SESSION['regime_generated']['type_regime'],
+            'poids_objectif' => $_SESSION['regime_generated']['poids_atteindre'],
+            'date_debut' => $_SESSION['regime_generated']['date_debut'],
+            'date_fin' => $_SESSION['regime_generated']['date_fin']
+        ));
+        $id_periode_regime = $this->db->insert_id();
+        for ($i=0; $i < count($_SESSION['regime_generated']['ids_plats']); $i++) { 
+            $this->db->insert('regime', array(
+                'id_periode_regime' => $id_periode_regime
+            ));
+            $id_regime = $this->db->insert_id();
+            //insert details aliments
+            for ($j=0; $j < 3; $j++) { 
+                $this->db->insert('details_aliments', array(
+                    'id_regime' => $id_regime,
+                    'id_plat' => $_SESSION['regime_generated']['ids_plats'][$i][$j]
+                ));
+            }
+            //insert details sports
+            $this->db->insert('details_sportif', array(
+                'id_regime' => $id_regime,
+                'id_sport' => $_SESSION['regime_generated']['ids_sports'][$i]
+            ));
+        }
+
+        // Si la transaction a echoue
+        if ($this->db->trans_status() === FALSE) {
+            $this->db->trans_rollback();
+
+            echo "rollback";
+            
+        } else {
+            $this->db->trans_complete();
+
+            if ($this->db->trans_status() === FALSE) {
+                // En cas d'echec de la transaction
+                echo "La transaction a échoué. Action de secours nécessaire.";
+            } else {
+                unset($_SESSION['regime_genrated']);
+                redirect('');
+            }
+        }
+    }
+
     public function imc(){
         $futur_imc = $this->input->post('futur_imc');
         if (is_numeric($futur_imc) && 

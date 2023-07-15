@@ -58,10 +58,35 @@
                     <div class="card">
                         <div class="d-flex align-items-center">
                             <h5 class="card-header">Montant a paye: <strong><?php echo $regime_generated['sum_prix'] ?> Ar</strong></h5>
-                            <form class="mx-4">
-                                <input type="hidden" name="regime_generated" value="">
-                                <button type="submit" class="btn btn-primary">Valider</button>
-                                <a class="btn btn-outline-danger" href="<?php echo base_url('')?>">Annuler</a>
+                            <form class="mx-4 d-flex" action="insert">
+                                <?php if ($_SESSION['wallet'] >= $regime_generated['sum_prix']) { ?>
+                                    <button type="submit" class="btn btn-primary mx-1">Valider</button>
+                                <?php } else { ?>
+                                    <div class="mx-1">
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalToggle">
+                                            Valider
+                                        </button>
+
+                                        <!-- Modal 1-->
+                                        <div class="modal fade" id="modalToggle" aria-labelledby="modalToggleLabel" tabindex="-1" style="display: none;" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="modalToggleLabel"></h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">Désolé, vous n'avez pas assez d'argent dans votre portefeuille pour effectuer ce montant.</div>
+                                                    <div class="modal-footer">
+                                                        <a class="btn btn-primary" href="<?php echo base_url('user/wallet')?>">Ajouter</a>
+                                                        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal" aria-label="Close">Annuler</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                                
+                                <a class="btn btn-outline-danger" href="<?php echo base_url('regime/cancel')?>">Annuler</a>
                             </form>
                         </div>
                         <div class="table-responsive text-nowrap">

@@ -7,21 +7,27 @@
                     <h4 class="fw-bold">Votre solde: <?php echo $_SESSION['wallet'].' Ar'?></h4>
                 </div>
 
-                <div class="card w-50 d-flex justify-content-center align-items-center mb-4">
-                    <div class="table-responsive text-nowrap d-flex flex-column"><div class="card-body">
-                        <form action="<?= base_url('/user/validation_user')?>" method="POST">
-                            <div class="d-flex flex-column align-items-center">
-                                <label for="defaultFormControlInput" class="form-label">Code</label>
-                                <input type="text" class="form-control mb-2" name="code" placeholder="Entrer un code valide" autocomplete="off" value=<?= (isset($value)) ? $value : "" ?>>
-                                <small class="mb-2" style="color:#ff3e1d"><?= (isset($error)) ? $error : "" ?></small>
-                                <button type="submit" class="btn btn-primary w-75">
-                                    <span class="tf-icons bx bx-pie-chart-alt"></span>&nbsp; Valider
-                                </button>
-                            </div>
+                    <div class="card w-50 d-flex justify-content-center align-items-center mb-4">
+                        <div class="table-responsive text-nowrap d-flex flex-column"><div class="card-body">
+                            <form action="<?= base_url('/user/validation_user')?>" method="POST">
+                                <div class="d-flex flex-column align-items-center">
+                                    <label for="defaultFormControlInput" class="form-label">Code</label>
+                                    <input type="text" class="form-control mb-2" name="code" placeholder="Entrer un code valide" autocomplete="off" value=<?= (isset($value)) ? $value : "" ?>>
+                                    <small class="mb-2" style="color:#ff3e1d"><?= (isset($error)) ? $error : "" ?></small>
+                                    <button type="submit" class="btn btn-primary w-75">
+                                        <span class="tf-icons bx bx-pie-chart-alt"></span>&nbsp; Valider
+                                    </button>
+                                </div>
+                            </form>                      
+                        </div>
+                    </div>
+
+
+                    <?php if (isset($_SESSION['regime_generated'])) { ?>
+                        <form class="mx-4 d-flex justify-content-end w-100" action="<?php echo base_url('regime/insert')?>">
+                            <button type="submit" class="btn btn-ouline-primary mx-1 mt-2">Continuer mon payement >></button>
                         </form>
-                      
-                    </div>
-                    </div>
+                    <?php } ?>
                 </div>
                 <div class="card">
                 <div class="table-responsive text-nowrap">

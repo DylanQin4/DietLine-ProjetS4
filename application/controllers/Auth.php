@@ -10,13 +10,16 @@ class Auth extends CI_Controller {
 		$this->load->helper(array('url'));
 		$this->load->model('userModel');
 		$this->load->model('genreModel');
-		
+		$this->load->model('regimeModel');
 	}
 	
 	
 	public function index() {
 		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
-			$this->load->view('home/accueil');
+			$data['regime_en_attente'] = $this->regimeModel->get_periode_regime($_SESSION['user_id'], 0);
+			$data['regime_en_cours'] = $this->regimeModel->get_periode_regime($_SESSION['user_id'], 1);
+
+			$this->load->view('home/accueil', $data);
 		} else {
 			redirect('auth/login');
 		}

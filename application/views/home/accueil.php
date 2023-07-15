@@ -2,7 +2,7 @@
     <!-- Content wrapper -->
     <div class="content-wrapper">
         <div class=" container-xxl flex-grow-1 container-p-y">
-            <div class="d-flex flex-column justify-content-between align-items-baseline h-100">
+            <div class="d-flex flex-column justify-content-start align-items-baseline h-100">
                 <div class="d-flex flex-column w-100 justify-content-start">
                     <div class="d-flex justify-content-between w-100 mb-4">
                         <h4 class="fw-bold">Accueil</h4>
@@ -55,10 +55,14 @@
                         </form>
                         </div>
                     </div>
-
-                    
-
                 </div>
+
+                <?php if (($regime_en_cours != null || $regime_en_attente != null)) { 
+                    require "regime/liste.php";
+                } else { 
+                    require "regime/vide.php";
+                } ?>
+
             </div>
         </div>
     </div>
