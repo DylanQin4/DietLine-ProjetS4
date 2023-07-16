@@ -85,7 +85,7 @@
 
                     <div class="d-flex">
                         <div class="modal-dialog">
-                            <form class="modal-content" method="POST" action="<?php echo base_url('regime/imc') ?>" >
+                            <form class="modal-content" method="POST" action="<?php echo base_url('regime/generated') ?>" >
                             <div class="modal-header">
                                 <h5 class="modal-title" id="modalTopTitle">Indice de masse corporelle (IMC)</h5>
                             </div>

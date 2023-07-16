@@ -25,25 +25,21 @@ class Regime extends CI_Controller {
         redirect('');
     }
 
-    public function detail($id_periode_regime, $id_regime){
+    public function details_plat($id_periode_regime, $id_regime){
         $this->load->model('regimeModel');
         $this->load->model('platModel');
-        $data['periode_regime'] = $this->regimeModel->get_periode_regime_by_id($id_periode_regime);
-        $data['id_periode_regime'] = $id_periode_regime;
-        $regimes = $this->regimeModel->get_regime_by_periode_regime($id_periode_regime);
-        $i = 0;
-        foreach ($regimes as $regime) {
-            $details_aliments = $this->regimeModel->get_details_aliments($regime->id);
-            $j = 0;
-            foreach ($details_aliments as $plat) {
-                $data['regimes']['details_aliments'][$i][$j] = $this->platModel->get_plat_by_id($plat->id_plat);
-                $j++;
-            }
-            $data['regimes']['details_sportif'][$i] = $this->regimeModel->get_details_sportif($regime->id);
-            $i++;
-        }
         
-        $this->load->view('home/details', $data);
+        $data['periode_regime'] = $this->regimeModel->get_periode_regime_by_id($id_periode_regime);
+        $details_aliments = $this->regimeModel->get_details_aliments($id_regime);
+        $j = 0;
+        foreach ($details_aliments as $plat) {
+            $data['regimes']['details_aliments'][$j] = $this->platModel->get_plat_by_id($plat->id_plat);
+            $data['regimes']['details_viandes'][$j] = $this->regimeModel->get_pourcentage_viande($plat->id_plat);
+            $j++;
+        }
+        $data['regimes']['details_sportif'] = $this->regimeModel->get_details_sportif($id_regime);
+        
+        $this->load->view('home/details-plat', $data);
     }
 
     public function details($id_periode_regime){
@@ -51,9 +47,9 @@ class Regime extends CI_Controller {
         $this->load->model('platModel');
         $data['periode_regime'] = $this->regimeModel->get_periode_regime_by_id($id_periode_regime);
         $data['id_periode_regime'] = $id_periode_regime;
-        $regimes = $this->regimeModel->get_regime_by_periode_regime($id_periode_regime);
+        $data['id_regimes'] = $this->regimeModel->get_regimes_by_periode_regime($id_periode_regime);
         $i = 0;
-        foreach ($regimes as $regime) {
+        foreach ($data['id_regimes'] as $regime) {
             $details_aliments = $this->regimeModel->get_details_aliments($regime->id);
             $j = 0;
             foreach ($details_aliments as $plat) {
@@ -148,12 +144,27 @@ class Regime extends CI_Controller {
     }
 
     public function generated(){
+        if ($this->input->post('futur_imc') != NULL) {
+            $futur_imc = $this->input->post('futur_imc');
+            if (!is_numeric($futur_imc) && 
+            !filter_var($futur_imc, FILTER_VALIDATE_FLOAT)){
+                $error = "Ce champ est invalide";
+                $error_value = $futur_imc;
+                $this->imcideal($error, $error_value);
+            } else {
+                $taille = $_SESSION['taille'];
+                $this->load->model('userModel');
+                $my_imc = $this->userModel->calculIMC($_SESSION['user_id']);
+                $type_regime = ($my_imc > $futur_imc) ? 1 : 2;
+                $poids_atteindre = round($futur_imc * ($taille * $taille), 2);
+            }
+        } else {
+            $type_regime = (int)$this->input->post('type_regime');
+            $poids_atteindre = (int)$this->input->post('poids_atteindre');
+        }
         $this->load->helper('url');
         $referrerURL = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '';
-        $type_regime = (int)$this->input->post('type_regime');
         $my_poids = isset($_SESSION['poids']) ? $_SESSION['poids'] : 0;
-        $poids_atteindre = (int)$this->input->post('poids_atteindre');
-        
         if ($my_poids > $poids_atteindre && $type_regime == 1 ||
             $my_poids < $poids_atteindre && $type_regime == 2) {
             $data['regime_generated'] = $this->generate($type_regime, $poids_atteindre);

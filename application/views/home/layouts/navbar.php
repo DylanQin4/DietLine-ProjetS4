@@ -15,7 +15,7 @@
         </a>
 
         <div class="navbar-nav me-auto">
-            <a class="nav-item nav-link active">Accueil</a>
+            <a class="nav-item nav-link active" href="<?php echo base_url('') ?>">Accueil</a>
             <a class="nav-item nav-link">Evolution</a>
         </div>
 

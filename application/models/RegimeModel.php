@@ -21,7 +21,7 @@ class RegimeModel extends CI_Model {
 		}
 	}
 
-	public function get_regime_by_periode_regime($id_periode_regime){
+	public function get_regimes_by_periode_regime($id_periode_regime){
 		$this->db->from('regime');
 		$this->db->where('id_periode_regime', $id_periode_regime);
 		$query = $this->db->get();
@@ -36,6 +36,20 @@ class RegimeModel extends CI_Model {
 	public function get_details_aliments($id_regime){
 		$this->db->from('details_aliments');
 		$this->db->where('id_regime', $id_regime);
+		$query = $this->db->get();
+
+		if ($query->num_rows() > 0) {
+			return $query->result();
+		} else {
+			return null;
+		}
+	}
+
+	public function get_pourcentage_viande($id_plat){
+		$this->db->select('type_viande.nom as nom_viande, pourcentage_viande.poucentage as pourcentage');
+		$this->db->from('pourcentage_viande');
+		$this->db->join('type_viande', 'type_viande.id = pourcentage_viande.id_viande');
+		$this->db->where('id_plat', $id_plat);
 		$query = $this->db->get();
 
 		if ($query->num_rows() > 0) {

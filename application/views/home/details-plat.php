@@ -7,7 +7,7 @@
                     <div class="d-flex justify-content-between w-100 mb-4">
                         <h4 class="fw-bold mb-0">
                         <div>
-                            <a href="<?php echo base_url('') ?>">
+                            <a onclick="history.back()" style="cursor:pointer">
                                 <i class="ml-1 bx bxs-left-arrow-circle" style="color:#5f61e6; font-size: 36px"></i>Retour
                             </a>
                         </div>
@@ -64,40 +64,58 @@
                 </div>
 
                 <h5 class="mt-2 text-muted">Regime du <?php echo formatFrenchDate($periode_regime->date_debut)?> a <?php echo formatFrenchDate($periode_regime->date_fin)?></h5>
-                    <div class="row mb-5 w-100">
-                    <?php
-                    for ($i=0; $i < count($regimes['details_aliments']); $i++) { ?>
-                        <div class="col-md-6 col-lg-4 mb-3">
-                            <div class="card h-100" style="opacity:1">
-                                <div class="card-body"> 
-                                    <h4 class="card-title">Jour <?php echo $i+1 ?></h4>
-                                    <div class="card-subtitle text-muted">Plats</div>
-                                    <div class="card-text">
-                                        <?php 
-                                        $sum = 0;
-                                        for ($j=0; $j < count($regimes['details_aliments'][$i]); $j++) { ?>
-                                            <div class="d-flex justify-content-between"><strong><?php echo $regimes['details_aliments'][$i][$j]->nom ?></strong>
-                                            <div><strong><?php echo $regimes['details_aliments'][$i][$j]->prix ?> Ar</strong></div></div>
-                                        <?php 
-                                        $sum = $sum + $regimes['details_aliments'][$i][$j]->prix;
-                                        } ?>
-                                    </div>
-
-                                    <div class="card-subtitle text-muted mt-2">Sports</div>
-                                    <div class="card-text">
-                                        <div class="d-flex justify-content-between"><div><strong><?php echo $regimes['details_sportif'][$i]->nom ?> </strong></div><div><strong>0Ar</strong></div></div>
-                                    </div>
-
-                                    <div class="d-flex flex-column justify-content-end align-items-end">
-                                        <p>Total: <strong><?php echo $sum?> Ar</strong></p>
-                                        <a type="button" class="btn btn-primary" style="outline:none;color:#fff" href="<?php echo base_url('regime/details_plat/'.$id_periode_regime.'/'.$id_regimes[$i]->id) ?>">
-                                            Details
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="d-flex w-100">
+                    <div class="card w-100">
+                        <div class="d-flex align-items-center">
+                            <h5 class="card-header">Montant a paye: <strong><?php echo "100" ?> Ar</strong></h5>
                         </div>
-                    <?php } ?>
+                        <div class="table-responsive text-nowrap">
+                            <table class="table">
+                                <thead>
+                                <tr>
+                                    <th class="bold"></th>
+                                    <th colspan="3" class="text-center border">Pourcentage</th>
+                                    <th></th>
+                                    <th class="bold"></th>
+                                    <th class="bold"></th>
+                                </tr>
+                                <tr>
+                                    <td class="text-center fw-bold border">Plat</td>
+                                    <td class="text-center fw-bold border">Viande</td>
+                                    <td class="text-center fw-bold border">Poulet</td>
+                                    <td class="text-center fw-bold border">Volaille</td>
+                                    <td class="text-center fw-bold border">Ingredients</td>
+                                    <td class="text-center fw-bold border">Montant</td>
+                                </tr>
+                                </thead>
+                                <tbody class="table-border-bottom-0">
+                                    <?php
+                                        $sum = 0.00;
+                                        for ($i=0; $i < count($regimes['details_aliments']); $i++) { 
+                                            $sum = $sum + $regimes['details_aliments'][$i]->prix;
+                                    ?>
+                                        <tr>
+                                            <td><strong><?php echo $regimes['details_aliments'][$i]->nom ?></strong></td>
+                                            <?php for ($j=0; $j < 3; $j++) {
+                                            ?>
+                                                <td><?php echo $regimes['details_viandes'][$i][$j]->pourcentage?>%</td>
+                                            <?php } ?>
+                                            <td><?php echo $regimes['details_aliments'][$i]->ingredients ?></td>
+                                            <td  class="text-end"><?php echo $regimes['details_aliments'][$i]->prix ?>Ar</td>
+                                        </tr>
+                                    <?php } ?>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-end">Total</td>
+                                        <td class="text-end"><strong><?php echo $sum ?>Ar</strong></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
 
             </div>
