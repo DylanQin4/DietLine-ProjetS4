@@ -11,6 +11,7 @@ class Regime extends CI_Controller {
         $this->load->model('PlatModel');
         $this->load->model('SportModel');
         $this->load->model('RegimeModel');
+        $this->load->model('userModel');
 	}
 
     public function index(){
@@ -229,5 +230,62 @@ class Regime extends CI_Controller {
             $sum_prix = $sum_prix + $rep[$i]['prix'];
         }
         return array($rep, $sum_prix);
+    }
+
+    public function regime_user(){
+        $regime_attente = $this->RegimeModel->get_all_periode_regime();
+        $count_regimeEnAttente = count($regime_attente);
+        if ($count_regimeEnAttente == 0) {
+            $this->load->view('admin/null_validation');
+        } else{
+            foreach ($regime_attente as $regime) {
+                $data['attente'][] = $regime;
+                $data['username'][] = $this->RegimeModel->get_user_regime($regime->id_user);
+                $type = $this->RegimeModel->get_type_regime($regime->id_type);
+                $data['type'][] = $type->type;
+            }
+            $this->load->view('admin/validation_regime', $data);
+        }
+    }
+
+    public function validation_regime(){
+        if (isset($_GET['id_user']) && isset($_GET['id_periode_regime']) && 
+                isset($_GET['date_debut']) && isset($_GET['date_fin']) && isset($_GET['montant'])) {
+            $id_user = $_GET['id_user'];
+            $id_periode_regime = $_GET['id_periode_regime'];
+            $date_debut = new DateTime($_GET['date_debut']);
+            $date_fin = new DateTime($_GET['date_fin']);
+            $montant = $_GET['montant'];
+
+            $diff = $date_fin->diff($date_debut);
+            $nbJours = $diff->days;
+            $last_regime_ofThisUser = $this->RegimeModel->get_last_regime_ofThisUser($id_user);
+
+            if ($last_regime_ofThisUser != null) {
+                $dateDebut = clone new DateTime($last_regime_ofThisUser->date_fin);
+                $dateDebut->add(new DateInterval('P' . 1 . 'D'));
+            } else{
+                $dateDebut = new DateTime();
+            }
+            
+            $dateFin = clone $dateDebut;
+            $dateFin->add(new DateInterval('P' . $nbJours . 'D'));
+            $dateDebut = $dateDebut->format('Y-m-d');
+            $dateFin = $dateFin->format('Y-m-d');
+
+            $this->RegimeModel->validation_regime($id_user, $id_periode_regime, $dateDebut, $dateFin, $montant);
+        
+        }
+        $this->regime_user();
+    }
+
+    public function refus_regime(){
+        if (isset($_GET['id_user']) && isset($_GET['id_periode_regime']) && isset($_GET['montant'])) {
+            $id_user = $_GET['id_user'];
+            $id_periode_regime = $_GET['id_periode_regime'];
+            $montant = $_GET['montant'];
+            $this->RegimeModel->refus_regime($id_user, $id_periode_regime, $montant);
+        }
+        $this->regime_user();
     }
 }

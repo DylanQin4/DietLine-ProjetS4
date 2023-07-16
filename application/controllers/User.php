@@ -182,8 +182,6 @@ class User extends CI_Controller {
 	redirect('User/list_user');
 	}
 
-    public function regime_user(){
-        $this->load->view('admin/validation_regime');
-    }
+    
 }
 ?>
