@@ -15,11 +15,13 @@ class Auth extends CI_Controller {
 	
 	
 	public function index() {
-		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
+		if (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true && $_SESSION['is_admin'] == false) {
 			$data['regime_en_attente'] = $this->regimeModel->get_periode_regime($_SESSION['user_id'], 0);
 			$data['regime_en_cours'] = $this->regimeModel->get_periode_regime($_SESSION['user_id'], 1);
 
 			$this->load->view('home/accueil', $data);
+		} else if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true && $_SESSION['is_admin'] == true){
+			redirect('admin');
 		} else {
 			redirect('auth/login');
 		}

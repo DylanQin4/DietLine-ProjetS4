@@ -12,24 +12,24 @@
                         <thead>
                         <tr>
                             <th>Nom d'utilisateurs</th>
-                            <th>Codes</th>
-                            <th>Valeur</th>
+                            <th>Type du regime</th>
+                            <th>Montant total</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody class="table-border-bottom-0">
 
-                            <?php for($i = 0; $i < 2; $i++){ ?>
+                            <?php for($i = 0; $i < count($attente); $i++){ ?>
                                 <tr>
-                                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i><strong>jhgf</strong></td>
-                                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i><strong>kjhg</strong></td>
-                                    <td>sdfgh</td>
+                                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i><strong><?php echo $username[$i]->username ?></strong></td>
+                                    <td><i class="fab fa-angular fa-lg text-danger me-3"></i><strong><?php echo $type[$i] ?></strong></td>
+                                    <td><?php echo $attente[$i]->montant_total ?></td>
                                     <td>
                                         <button type="button" class="btn btn-success">
-                                        <a href="<?= base_url("user/validation_regime?id_periode_regime=1&id_user=2")?>" style="color: inherit; text-decoration: none;">Valider</a>
+                                        <a     href="<?= base_url("regime/validation_regime?id_periode_regime=".$attente[$i]->id."&id_user=".$attente[$i]->id_user."&date_debut=".$attente[$i]->date_debut."&date_fin=".$attente[$i]->date_fin."&montant=".$attente[$i]->montant_total)?>" style="color: inherit; text-decoration: none;">Valider</a>
                                         </button>
                                         <button type="button" class="btn btn-danger">
-                                            <a href="<?= base_url("user/refus_regime?indice_valid_code=1")?>" style="color: inherit; text-decoration: none;" style="color: inherit; text-decoration: none;">Refuser</a>
+                                            <a href="<?= base_url("regime/refus_regime?id_periode_regime=".$attente[$i]->id."&id_user=".$attente[$i]->id_user."&montant=".$attente[$i]->montant_total)?>" style="color: inherit; text-decoration: none;" style="color: inherit; text-decoration: none;">Refuser</a>
                                         </button>
                                     </td>
                                 </tr>

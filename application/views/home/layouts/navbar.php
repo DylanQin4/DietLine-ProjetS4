@@ -10,7 +10,7 @@
 
     <div class="h-100 d-flex align-items-center justify-content-between w-100" id="navbar-collapse">
         <!-- Logo -->
-        <a href="<?php echo base_url('') ?>" class="app-brand demo me-2 h-100">
+        <a href="<?php echo base_url('/') ?>" class="app-brand demo me-2 h-100">
             <img class="h-100" src="<?php echo base_url('assets/img/logo.png') ?>" alt="" srcset="">
         </a>
 
@@ -62,7 +62,7 @@
                 <li>
                     <a class="dropdown-item" href="<?= base_url('user/profil') ?>">
                     <i class="bx bx-user me-2"></i>
-                    <span class="align-middle">Profile</span>
+                    <span class="align-middle">Profil</span>
                     </a>
                 </li>
                 

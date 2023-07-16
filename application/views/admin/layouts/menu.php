@@ -2,11 +2,8 @@
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo py-2">
-        <a href="index.html" class="app-brand-link">
-            <span class="app-brand-logo demo">
-                
-            </span>
-            <span class="app-brand-text demo menu-text fw-bolder ms-2">Logo</span>
+        <a href="<?php echo base_url('/') ?>" class=" demo h-100">
+            <img class="h-100" src="<?php echo base_url('assets/img/logo.png') ?>" alt="" srcset="">
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -31,7 +28,7 @@
 
             <ul class="menu-sub">
                 <li class="menu-item">
-                    <a href="<?php echo base_url('user/regime_user'); ?>" class="menu-link">
+                    <a href="<?php echo base_url('regime/regime_user'); ?>" class="menu-link">
                     <div data-i18n="Analytics">Validation de regime</div>
                     </a>
                 </li>

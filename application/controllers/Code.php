@@ -65,8 +65,12 @@ class Code extends CI_Controller {
     public function insert_code(){
         $valeur = $this->input->post('valeur');
         $code = $this->input->post('code');
-        $id_valeur = $this->codeModel->get_idValeur_by_valeur($valeur)->id;
-        $this->codeModel->add_code($code, $id_valeur);
+        $id_valeur = $this->codeModel->get_idValeur_by_valeur($valeur);
+        if ($id_valeur == null) {
+            $this->codeModel->transaction_valeur_code($code, $valeur);
+        } else{
+            $this->codeModel->add_code($code, $id_valeur->id);
+        }
         $this->get_all();
     }
 }

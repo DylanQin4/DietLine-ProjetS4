@@ -175,9 +175,14 @@ class CodeModel extends CI_Model {
     public function get_idValeur_by_valeur($valeur) {
         $this->db->from('valeur');
         $this->db->where('valeur', $valeur);
-        $result = $this->db->get()->row();
+        $query = $this->db->get();
     
-        return $result;
+        if ($query->num_rows() > 0) {
+            return $query->row();
+        } else {
+            return null;
+        }
+        
     }   
 
     // public function updateCode($id_valeur, $id_code){
@@ -208,6 +213,37 @@ class CodeModel extends CI_Model {
         );
         
         return $this->db->insert('codes', $data);
+    }
+
+    public function transaction_valeur_code($code, $valeur){
+        $this->db->trans_start(); // Début de la transaction
+        try {
+            //Ra mbola tsisy le valeur ampidiriny d mampiditra anaty table valeur aloha
+            $data = array(
+                'valeur' => $valeur
+            );
+            $this->db->insert('valeur', $data);
+            
+            // Récupérer l'ID de la dernière ligne insérée
+            $dernier_id = $this->db->insert_id();
+            
+            //D zay vo maka anle farany no-inserena apidirina anaty table code
+            $this->add_code($code, $dernier_id);
+
+            // Étape 2 : Vérifier si tout s'est bien passé
+            $transaction_status = $this->db->trans_status();
+            
+            if ($transaction_status === FALSE) {
+                $this->db->trans_rollback(); // Annuler la transaction
+                return false;
+            } else {
+                $this->db->trans_commit(); // Valider la transaction
+                return true;
+            }
+        } catch (Exception $e) {
+            $this->db->trans_rollback(); // Annuler la transaction en cas d'erreur
+            return false;
+        }
     }
 }
 ?>
