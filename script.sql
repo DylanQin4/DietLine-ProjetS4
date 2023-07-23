@@ -240,4 +240,3 @@ INSERT INTO sport VALUES
     (null, 2, 'Soulevé de terre'),
     (null, 2, 'Developpé couché'),
     (null, 2, 'Natation');
-    
